@@ -31,7 +31,6 @@ private val NOTIFICATION_ID = 0
 private val REQUEST_CODE = 0
 private val FLAGS = 0
 
-// TODO: Step 1.1 extension function to send messages (GIVEN)
 /**
  * Builds and delivers the notification.
  *
@@ -47,7 +46,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         contentIntent,
         PendingIntent.FLAG_UPDATE_CURRENT
     )
-    // TODO: Step 2.0 add style
     val eggImage = BitmapFactory.decodeResource(
             applicationContext.resources,
             R.drawable.cooked_egg
@@ -55,7 +53,6 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
     val bigPicStyle = NotificationCompat.BigPictureStyle()
             .bigLargeIcon(null)
             .bigPicture(eggImage)
-    // TODO: Step 2.2 add snooze action
     val snoozeIntent = Intent(applicationContext, SnoozeReceiver::class.java)
     val snoozePendingIntent = PendingIntent.getBroadcast(
             applicationContext,
@@ -68,23 +65,17 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         applicationContext,
         applicationContext.getString(R.string.egg_notification_channel_id)
     )
-    // TODO: Step 1.8 use the new 'breakfast' notification channel
-
         .setSmallIcon(R.drawable.cooked_egg)
         .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
         .setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
-        // TODO: Step 2.1 add style to builder
         .setStyle(bigPicStyle)
         .setLargeIcon(eggImage)
-        // TODO: Step 2.3 add snooze action
-
         .addAction(
                 R.drawable.egg_icon,
                 applicationContext.getString(R.string.snooze),
                 snoozePendingIntent)
-        // TODO: Step 2.5 set priority
         .setPriority(NotificationCompat.PRIORITY_HIGH)
     notify(NOTIFICATION_ID, builder.build())
 }
